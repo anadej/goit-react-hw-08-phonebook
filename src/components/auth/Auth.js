@@ -7,6 +7,7 @@ import {
 import { AuthContainer } from "./AuthStyled";
 import sprite from "../../icons/project_sprites.svg";
 import { withRouter } from "react-router-dom";
+import { getError } from "../../redux/auth/authSelector";
 
 class Auth extends Component {
   state = {
@@ -116,7 +117,7 @@ class Auth extends Component {
 }
 
 const mapStateToProps = (state) => ({
-  error: state.auth.errorAuth,
+  error: getError(state),
 });
 
 export default connect(mapStateToProps, {
