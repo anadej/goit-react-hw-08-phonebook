@@ -4,6 +4,10 @@ export const NavigationContainer = styled.nav`
   .navList {
     display: flex;
   }
+
+  .auth {
+    margin-left: 80px;
+  }
   .navListItem:not(:last-child) {
     margin-right: 20px;
   }
