@@ -1,12 +1,12 @@
 import React from "react";
 import { connect } from "react-redux";
 import { signOutUser } from "../../../redux/auth/authAction";
-import { getEmail } from "../../../redux/auth/authSelector";
+import { getDisplayName } from "../../../redux/auth/authSelector";
 
-const UserMenu = ({ signOutUser, isMail }) => {
+const UserMenu = ({ signOutUser, displayName }) => {
   return (
     <>
-      <li className="navListItem navLink userAuth">({isMail})</li>
+      <li className="navListItem navLink">Welcome, {displayName}</li>
       <li className="navListItem">
         <a className="navLink" href="/login" onClick={() => signOutUser()}>
           LOGOUT
@@ -18,7 +18,7 @@ const UserMenu = ({ signOutUser, isMail }) => {
 
 const mapStateToProps = (state) => {
   return {
-    isMail: getEmail(state),
+    displayName: getDisplayName(state),
   };
 };
 

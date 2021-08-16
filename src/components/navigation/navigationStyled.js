@@ -13,12 +13,8 @@ export const NavigationContainer = styled.nav`
     font-weight: 700;
     color: darkblue;
   }
-  .navLinkActive {
-    color: #eb4629;
-  }
 
-  .userAuth {
-    text-decoration: underline;
+  .navLinkActive {
     color: #eb4629;
   }
 `;

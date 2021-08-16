@@ -10,22 +10,25 @@ import {
 const userReducerPersistConfig = {
   key: "userInfo",
   storage: storage,
-  whitelist: ["email", "localId"],
+  whitelist: ["email", "displayName", "localId"],
 };
 
 const userReducer = createReducer(
-  { email: "", localId: "" },
+  { email: "", displayName: "", localId: "" },
   {
     [registerUserSuccess]: (_, { payload }) => ({
       email: payload.email,
+      displayName: payload.displayName,
       localId: payload.localId,
     }),
     [loginUserSuccess]: (_, { payload }) => ({
       email: payload.email,
+      displayName: payload.displayName,
       localId: payload.localId,
     }),
     [signOutUser]: () => ({
       email: "",
+      displayName: "",
       localId: "",
     }),
   }

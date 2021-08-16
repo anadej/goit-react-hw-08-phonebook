@@ -12,7 +12,10 @@ class Auth extends Component {
   state = {
     email: "",
     password: "",
+    displayName: "",
   };
+
+  isRegisterPage = () => this.props.location.pathname === "/register";
 
   componentDidUpdate(prevProps, prevState) {
     if (prevProps.error !== this.props.error) {
@@ -30,14 +33,14 @@ class Auth extends Component {
 
   onHandleSubmit = (e) => {
     e.preventDefault();
-    this.props.location.pathname === "/register"
+    this.isRegisterPage()
       ? this.props.registerUserOperation(this.state)
       : this.props.loginUserOperation(this.state);
   };
 
   render() {
     const { pathname } = this.props.location;
-    const { email, password } = this.state;
+    const { email, password, displayName } = this.state;
     return (
       <AuthContainer>
         <form
@@ -46,10 +49,29 @@ class Auth extends Component {
           autoComplete="off"
           name="userForm"
         >
-          {pathname === "/register" ? (
+          {/* {pathname === "/register" ? (
             <p className="user-form-title">Register</p>
           ) : (
             <p className="user-form-title">Login</p>
+          )} */}
+          {this.isRegisterPage() && (
+            <label className="user-form-label">
+              Name
+              <input
+                type="text"
+                name="displayName"
+                onChange={this.onHandleChange}
+                value={displayName}
+                className="user-form-input"
+                placeholder="Jony English"
+                minLength="3"
+                autoComplete="on"
+                required
+              />
+              <svg className="icon-user">
+                <use href={sprite + "#icon-user"} />
+              </svg>
+            </label>
           )}
           <label className="user-form-label">
             Email
