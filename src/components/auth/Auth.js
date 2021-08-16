@@ -5,7 +5,7 @@ import {
   loginUserOperation,
 } from "../../redux/auth/authOperations";
 import { AuthContainer } from "./AuthStyled";
-import sprite from "../../icons/section1_sprite.svg";
+import sprite from "../../icons/project_sprites.svg";
 import { withRouter } from "react-router-dom";
 
 class Auth extends Component {
@@ -14,12 +14,14 @@ class Auth extends Component {
     password: "",
   };
 
-  // componentDidUpdate(prevProps, prevState) {
-  //   if (prevProps.error === this.props.error) {
-  //     console.log(this.props.error);
-  //     // if(this.props.error === "")
-  //   }
-  // }
+  componentDidUpdate(prevProps, prevState) {
+    if (prevProps.error !== this.props.error) {
+      console.log(this.props.error);
+      if (this.props.error === "Request failed with status code 400") {
+        alert("User not found! Input correct login data.");
+      }
+    }
+  }
 
   onHandleChange = (e) => {
     const { name, value } = e.target;
@@ -57,7 +59,7 @@ class Auth extends Component {
               onChange={this.onHandleChange}
               value={email}
               className="user-form-input"
-              placeholder="name@mail.com"
+              placeholder="jony@gmail.com"
               minLength="3"
               autoComplete="on"
               required
@@ -91,11 +93,11 @@ class Auth extends Component {
   }
 }
 
-// const mapStateToProps = (state) => ({
-//   error: state.auth.errorAuth,
-// });
+const mapStateToProps = (state) => ({
+  error: state.auth.errorAuth,
+});
 
-export default connect(null, {
+export default connect(mapStateToProps, {
   registerUserOperation,
   loginUserOperation,
 })(withRouter(Auth));

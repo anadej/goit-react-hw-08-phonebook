@@ -6,11 +6,18 @@ import { mainRoutes } from "../../routes/mainRoutes";
 import PrivateRoute from "../../routes/PrivateRoute";
 import PublicRoute from "../../routes/PublicRoute";
 import { MainContainer } from "./MainStyled";
+import Loader from "react-loader-spinner";
 
 const Main = ({ isAuth }) => {
   return (
     <MainContainer>
-      <Suspense fallback={<h2>...loading</h2>}>
+      <Suspense
+        fallback={
+          <div className="loader">
+            <Loader type="ThreeDots" color="darkblue" height={80} width={80} />
+          </div>
+        }
+      >
         <Switch>
           {mainRoutes.map((route) =>
             route.isPrivate ? (

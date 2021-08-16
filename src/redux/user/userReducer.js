@@ -1,11 +1,19 @@
 import { createReducer } from "@reduxjs/toolkit";
+import persistReducer from "redux-persist/es/persistReducer";
+import storage from "redux-persist/lib/storage";
 import {
   loginUserSuccess,
   registerUserSuccess,
   signOutUser,
 } from "../auth/authAction";
 
-export const userReducer = createReducer(
+const userReducerPersistConfig = {
+  key: "userInfo",
+  storage: storage,
+  whitelist: ["email", "localId"],
+};
+
+const userReducer = createReducer(
   { email: "", localId: "" },
   {
     [registerUserSuccess]: (_, { payload }) => ({
@@ -22,3 +30,5 @@ export const userReducer = createReducer(
     }),
   }
 );
+
+export default persistReducer(userReducerPersistConfig, userReducer);

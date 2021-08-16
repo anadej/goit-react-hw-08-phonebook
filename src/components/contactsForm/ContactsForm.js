@@ -5,7 +5,8 @@ import {
   addContactOperation,
   getContactsOperation,
 } from "../../redux/contacts/contactsOperations";
-import { getLoading } from "../../redux/contacts/contactsSelectors";
+import sprite from "../../icons/project_sprites.svg";
+import { getAllContacts } from "../../redux/contacts/contactsSelectors";
 
 const groupContacts = ["all", "family", "friends", "work"];
 
@@ -29,6 +30,14 @@ class ContactsForm extends Component {
 
   onHandleSubmit = async (e) => {
     e.preventDefault();
+    if (
+      this.props.allContacts.some(
+        (item) => item.name.toLowerCase() === this.state.name.toLowerCase()
+      )
+    ) {
+      alert(this.state.name + " is already in contact list");
+      return this.state;
+    }
     this.props.addContactOperation({ ...this.state });
     this.setState({ ...initialState });
   };
@@ -37,7 +46,6 @@ class ContactsForm extends Component {
     const { name, number } = this.state;
     return (
       <ContactsFormStyled>
-        {this.props.isLoading && <p>...loading</p>}
         <form className="phoneForm" onSubmit={this.onHandleSubmit}>
           <label className="labelForm">
             Name:
@@ -51,6 +59,9 @@ class ContactsForm extends Component {
               required
               onChange={this.onHandleChange}
             />
+            <svg className="icon-user">
+              <use href={sprite + "#icon-user"} />
+            </svg>
           </label>
           <label className="labelForm">
             Number:
@@ -64,6 +75,9 @@ class ContactsForm extends Component {
               required
               onChange={this.onHandleChange}
             />
+            <svg className="icon-user">
+              <use href={sprite + "#icon-phone"} />
+            </svg>
           </label>
           <label className="labelForm">
             Group:
@@ -87,9 +101,12 @@ class ContactsForm extends Component {
     );
   }
 }
-const mapStateToProps = (state) => ({
-  isLoading: getLoading(state),
-});
+
+const mapStateToProps = (state) => {
+  return {
+    allContacts: getAllContacts(state),
+  };
+};
 
 export default connect(mapStateToProps, {
   addContactOperation,

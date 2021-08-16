@@ -16,4 +16,9 @@ export const NavigationContainer = styled.nav`
   .navLinkActive {
     color: #eb4629;
   }
+
+  .userAuth {
+    text-decoration: underline;
+    color: #eb4629;
+  }
 `;
