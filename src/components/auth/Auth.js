@@ -20,10 +20,10 @@ class Auth extends Component {
 
   componentDidUpdate(prevProps, prevState) {
     if (prevProps.error !== this.props.error) {
-      console.log(this.props.error);
-      if (this.props.error === "Request failed with status code 400") {
-        alert("User not found! Input correct login data.");
-      }
+      this.isRegisterPage() &&
+      this.props.error === "Request failed with status code 400"
+        ? alert("User with this name is already registered.")
+        : alert("User not found! Input correct login data.");
     }
   }
 
